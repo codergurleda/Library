@@ -72,4 +72,4 @@ Location codes: `LR – Top`, `LR – Mid`, `LR – Low`, `A1`–`A5`, `B1`–`B
 
 ---
 
-*Cataloged with Claude · Tribeca, NYC*
+*Cataloged with Claude*
