@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0d0a;
+  --surface: #1a1612;
+  --surface2: #211e19;
+  --border: #2e2a24;
+  --border2: #3d3830;
+  --gold: #c9a84c;
+  --gold-dim: #7a6330;
+  --cream: #f0e8d8;
+  --cream-dim: #9e9282;
+  --cream-muted: #5a5248;
+  --accent: #a0522d;
+  --accent2: #7a3d20;
+  --row-hover: #221f1a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative;
+  padding: 5rem 2rem 3.5rem;
+  border-bottom: 1px solid var(--border);
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 80% 20%, rgba(160,82,45,0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.header-rule {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.1s forwards;
+}
+
+.header-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.2s forwards;
+  margin-bottom: 0.75rem;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fadeUp 0.9s ease 0.3s forwards;
+}
+
+h1 em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.header-meta {
+  display: flex;
+  gap: 3rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.5s forwards;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.meta-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+}
+
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(12px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ── LOCATION LEGEND ── */
+.legend-section {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 0;
+}
+
+.legend-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  margin-bottom: 0.75rem;
+}
+
+.legend-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.leg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--cream-dim);
+  font-family: 'DM Mono', monospace;
+}
+
+.leg-swatch {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── CONTROLS ── */
+.controls-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(15,13,10,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.controls {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0.9rem 2rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cream-muted);
+  font-size: 0.9rem;
+  pointer-events: none;
+  font-family: 'DM Mono', monospace;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.6rem 1rem 0.6rem 2.2rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]::placeholder { color: var(--cream-muted); }
+input[type="text"]:focus { border-color: var(--gold-dim); }
+
+select {
+  padding: 0.6rem 2rem 0.6rem 0.85rem;
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%235a5248'/%3E%3C/svg%3E") no-repeat right 0.65rem center;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--cream-dim);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 300;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+select:focus { border-color: var(--gold-dim); }
+
+.count-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--cream-muted);
+  padding: 0.35rem 0.75rem;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+}
+
+/* ── TABLE ── */
+.table-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+thead th {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  background: var(--bg);
+  position: sticky;
+  top: 53px;
+  z-index: 5;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+thead th:hover { color: var(--gold); }
+thead th.sorted { color: var(--gold); }
+
+.arr {
+  display: inline-block;
+  margin-left: 3px;
+  opacity: 0.3;
+  font-size: 0.55rem;
+}
+
+thead th.sorted .arr { opacity: 1; }
+
+tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+  cursor: default;
+}
+
+tbody tr:hover { background: var(--row-hover); }
+
+tbody tr.unc { opacity: 0.5; }
+
+td {
+  padding: 0.8rem 1rem;
+  vertical-align: middle;
+}
+
+.td-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--cream-muted);
+  width: 36px;
+  text-align: right;
+  padding-right: 0.5rem;
+}
+
+.td-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--cream);
+  min-width: 220px;
+  font-weight: 300;
+}
+
+.td-author {
+  font-size: 0.82rem;
+  color: var(--cream-dim);
+  min-width: 160px;
+}
+
+.unc-mark {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  margin-left: 0.4rem;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Genre pills */
+.gp {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 2px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.g-fi  { background: rgba(160,82,45,0.15);  color: #d4856a; border-color: rgba(160,82,45,0.3); }
+.g-sf  { background: rgba(70,120,180,0.15); color: #7aadda; border-color: rgba(70,120,180,0.3); }
+.g-fa  { background: rgba(100,70,160,0.15); color: #a989d8; border-color: rgba(100,70,160,0.3); }
+.g-nf  { background: rgba(60,140,80,0.15);  color: #72ba82; border-color: rgba(60,140,80,0.3); }
+.g-bu  { background: rgba(180,140,40,0.15); color: #c9a84c; border-color: rgba(180,140,40,0.3); }
+.g-sc  { background: rgba(40,150,170,0.15); color: #5dbdca; border-color: rgba(40,150,170,0.3); }
+.g-hi  { background: rgba(170,100,40,0.15); color: #c98050; border-color: rgba(170,100,40,0.3); }
+.g-me  { background: rgba(180,70,100,0.15); color: #d87a96; border-color: rgba(180,70,100,0.3); }
+.g-ck  { background: rgba(90,150,60,0.15);  color: #82c262; border-color: rgba(90,150,60,0.3); }
+.g-tr  { background: rgba(40,160,130,0.15); color: #52c8a8; border-color: rgba(40,160,130,0.3); }
+.g-tb  { background: rgba(100,100,160,0.15);color: #9898d8; border-color: rgba(100,100,160,0.3); }
+.g-ph  { background: rgba(140,70,160,0.15); color: #c080d8; border-color: rgba(140,70,160,0.3); }
+.g-po  { background: rgba(200,80,80,0.15);  color: #e08080; border-color: rgba(200,80,80,0.3); }
+.g-ec  { background: rgba(60,160,80,0.15);  color: #60c870; border-color: rgba(60,160,80,0.3); }
+.g-te  { background: rgba(40,130,200,0.15); color: #60b0e8; border-color: rgba(40,130,200,0.3); }
+.g-po2 { background: rgba(200,120,40,0.15); color: #e09050; border-color: rgba(200,120,40,0.3); }
+.g-gr  { background: rgba(100,160,60,0.15); color: #90c860; border-color: rgba(100,160,60,0.3); }
+.g-sh  { background: rgba(160,140,40,0.15); color: #c8b050; border-color: rgba(160,140,40,0.3); }
+.g-he  { background: rgba(40,170,120,0.15); color: #50d090; border-color: rgba(40,170,120,0.3); }
+.g-hu  { background: rgba(220,160,40,0.15); color: #e0c060; border-color: rgba(220,160,40,0.3); }
+.g-be  { background: rgba(180,60,120,0.15); color: #d870a0; border-color: rgba(180,60,120,0.3); }
+.g-bi  { background: rgba(190,110,40,0.15); color: #d89050; border-color: rgba(190,110,40,0.3); }
+.g-ps  { background: rgba(120,80,180,0.15); color: #b080e0; border-color: rgba(120,80,180,0.3); }
+.g-ad  { background: rgba(40,180,100,0.15); color: #50d880; border-color: rgba(40,180,100,0.3); }
+.g-di  { background: rgba(120,110,90,0.15); color: #a09880; border-color: rgba(120,110,90,0.3); }
+.g-ft  { background: rgba(80,180,80,0.15);  color: #70d870; border-color: rgba(80,180,80,0.3); }
+.g-re  { background: rgba(130,120,100,0.15);color: #b0a888; border-color: rgba(130,120,100,0.3); }
+
+/* Location pills */
+.lp {
+  display: inline-block;
+  padding: 0.22rem 0.65rem;
+  border-radius: 2px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+.no-results {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: var(--cream-muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.4rem;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--cream-muted);
+  text-transform: uppercase;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-dim); }
+
+@media (max-width: 680px) {
+  header { padding: 3rem 1.25rem 2rem; }
+  .controls { padding: 0.75rem 1.25rem; }
+  .table-wrap { padding: 0 0 4rem; }
+  td, th { padding: 0.65rem 0.6rem; }
+  .td-title { min-width: 160px; }
+  .td-author { min-width: 120px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-rule"></div>
+    <div class="eyebrow">Madhu and Raj's Library </div>
+    <h1>Our <em>Library</em></h1>
+    <div class="header-meta">
+      <div class="meta-item">
+        <div class="meta-num" id="tc">—</div>
+        <div class="meta-label">Volumes</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num" id="gc-count">—</div>
+        <div class="meta-label">Genres</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-num">6</div>
+        <div class="meta-label">Locations</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="legend-section">
+  <div class="legend-label">Where to find it</div>
+  <div class="legend-items" id="legend"></div>
+</div>
+
+<div class="controls-wrap">
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Search title or author…" oninput="ft()">
+    </div>
+    <select id="gf" onchange="ft()"><option value="">All genres</option></select>
+    <select id="lf" onchange="ft()"><option value="">All locations</option></select>
+    <div class="count-chip" id="sc">— titles</div>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th class="td-n">#</th>
+        <th onclick="st(0)" data-col="0">Title <span class="arr">↕</span></th>
+        <th onclick="st(1)" data-col="1">Author <span class="arr">↕</span></th>
+        <th onclick="st(2)" data-col="2">Genre <span class="arr">↕</span></th>
+        <th onclick="st(3)" data-col="3">Location <span class="arr">↕</span></th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="no-results" id="nr" style="display:none">No books found.</div>
+</div>
+
+<footer>
+  Cataloged with Claude · Tribeca, NYC
+</footer>
+
+<script>
+const LOC = {
+  "LR – Top":  ["Living Room · Top",         "#4a7a9b", "rgba(74,122,155,0.15)"],
+  "LR – Mid":  ["Living Room · Middle",       "#3a8a5a", "rgba(58,138,90,0.15)"],
+  "LR – Low":  ["Living Room · Lower",        "#8a6a2a", "rgba(138,106,42,0.15)"],
+  "A5":        ["Study A · Shelf 5",          "#7a3a8a", "rgba(122,58,138,0.15)"],
+  "A4":        ["Study A · Shelf 4",          "#8a3a6a", "rgba(138,58,106,0.15)"],
+  "A3":        ["Study A · Shelf 3",          "#963050", "rgba(150,48,80,0.15)"],
+  "A2":        ["Study A · Shelf 2",          "#9a3838", "rgba(154,56,56,0.15)"],
+  "A1":        ["Study A · Shelf 1",          "#8a4a30", "rgba(138,74,48,0.15)"],
+  "B5":        ["Study B · Shelf 5",          "#2a6a5a", "rgba(42,106,90,0.15)"],
+  "B4":        ["Study B · Shelf 4",          "#2a7a4a", "rgba(42,122,74,0.15)"],
+  "B3":        ["Study B · Shelf 3",          "#3a7a38", "rgba(58,122,56,0.15)"],
+  "B2":        ["Study B · Shelf 2",          "#507a2a", "rgba(80,122,42,0.15)"],
+  "B1":        ["Study B · Shelf 1",          "#6a7a20", "rgba(106,122,32,0.15)"],
+  "STK":       ["Study · Stack",              "#c9a84c", "rgba(201,168,76,0.15)"],
+  "CT":        ["Coffee Table",               "#4a8a8a", "rgba(74,138,138,0.15)"],
+};
+
+const GC = {
+  "Fiction":"g-fi","Sci_Fi":"g-sf","Fantasy":"g-fa","Nonfiction":"g-nf",
+  "Business":"g-bu","Science":"g-sc","History":"g-hi","Memoir":"g-me",
+  "Cooking":"g-ck","Travel":"g-tr","Textbook":"g-tb","Philosophy":"g-ph",
+  "Poetry":"g-po","Economics":"g-ec","Technology":"g-te","Politics":"g-po2",
+  "Graphic Novel":"g-gr","Self-Help":"g-sh","Health":"g-he","Humor":"g-hu",
+  "Bengali Fiction":"g-be","Biography":"g-bi","Psychology":"g-ps",
+  "Adventure":"g-ad","DIY":"g-di","Fitness":"g-ft","Reference":"g-re",
+  "Bengali Literature":"g-be"
+};
+const gc = g => GC[g] || "g-nf";
+
+const RAW = [
+["Empire of AI","Karen Hao","Technology","LR – Top",true],
+["The Coming Wave","Mustafa Suleyman","Technology","LR – Top",true],
+["Parallel Worlds","Michio Kaku","Science","LR – Top",true],
+["1984","George Orwell","Fiction","LR – Mid",true],
+["A Thousand Brains","Jeff Hawkins","Science","LR – Mid",true],
+["Americanah","Chimamanda Ngozi Adichie","Fiction","LR – Mid",true],
+["Behave","Robert M. Sapolsky","Science","LR – Mid",true],
+["The Beginning of Infinity","David Deutsch","Science","LR – Mid",true],
+["The Body: A Guide for Occupants","Bill Bryson","Science","LR – Mid",true],
+["The Color of Law","Richard Rothstein","Nonfiction","LR – Mid",true],
+["Principles: Life and Work","Ray Dalio","Business","LR – Mid",true],
+["Die with Zero","Bill Perkins","Self-Help","LR – Mid",true],
+["Dinners with Ruth","Nina Totenberg","Memoir","LR – Mid",true],
+["dirtcandy","Amanda Cohen & Ryan Dunlavey","Cooking","LR – Mid",true],
+["Educated","Tara Westover","Memoir","LR – Mid",true],
+["Europe","Tim Flannery","Nonfiction","LR – Mid",true],
+["Four Thousand Weeks","Oliver Burkeman","Philosophy","LR – Mid",true],
+["From Strength to Strength","Arthur C. Brooks","Self-Help","LR – Mid",true],
+["The Gene","Siddhartha Mukherjee","Science","LR – Mid",true],
+["Hacking Darwin","Jamie Metzl","Science","LR – Mid",true],
+["India After Gandhi","Ramachandra Guha","History","LR – Mid",true],
+["Indian Summer","Alex von Tunzelmann","History","LR – Mid",true],
+["The Inevitable","Kevin Kelly","Technology","LR – Mid",true],
+["Modi's India","Christophe Jaffrelot","Politics","LR – Mid",true],
+["The Secret History of Wonder Woman","Jill Lepore","Nonfiction","LR – Mid",true],
+["The Sixth Extinction","Elizabeth Kolbert","Science","LR – Mid",true],
+["The Song of the Cell","Siddhartha Mukherjee","Science","LR – Mid",true],
+["The Three-Body Problem","Liu Cixin","Sci_Fi","LR – Mid",true],
+["Upheaval","Jared Diamond","Nonfiction","LR – Mid",true],
+["What Got You Here Won't Get You There","Marshall Goldsmith","Business","LR – Mid",true],
+["Why Does the World Exist?","Jim Holt","Philosophy","LR – Mid",true],
+["Your Ad Ignored Here","Tom Fishburne","Business","LR – Mid",true],
+["Between the World and Me","Ta-Nehisi Coates","Nonfiction","LR – Low",true],
+["The Confidence Code","Katty Kay & Claire Shipman","Nonfiction","LR – Low",true],
+["The Creative Act: A Way of Being","Rick Rubin","Nonfiction","LR – Low",true],
+["The Elegant Universe","Brian Greene","Science","LR – Low",true],
+["Gun Island","Amitav Ghosh","Fiction","LR – Low",true],
+["How the Mind Works","Steven Pinker","Science","LR – Low",true],
+["Lessons in Chemistry","Bonnie Garmus","Fiction","LR – Low",true],
+["Meditations","Marcus Aurelius","Philosophy","LR – Low",true],
+["Misreadings","Umberto Eco","Fiction","LR – Low",true],
+["Murakami: Novelist as a Vocation","Haruki Murakami","Nonfiction","LR – Low",true],
+["My Brilliant Friend","Elena Ferrante","Fiction","LR – Low",true],
+["New Yorkers","Craig Taylor","Nonfiction","LR – Low",true],
+["Outlive","Peter Attia, MD","Health","LR – Low",true],
+["Palestine","Joe Sacco","Nonfiction","LR – Low",true],
+["Powering Purpose","Various","Business","LR – Low",true],
+["Scaling People","Claire Hughes Johnson","Business","LR – Low",true],
+["Sophie's World","Jostein Gaarder","Fiction","LR – Low",true],
+["The Subtle Art of Not Giving a F*ck","Mark Manson","Self-Help","LR – Low",true],
+["Talking to Strangers","Malcolm Gladwell","Nonfiction","LR – Low",true],
+["Unwinding Anxiety","Judson Brewer, MD","Health","LR – Low",true],
+["Alaska (travel guide)","Fodor's","Travel","A5",true],
+["Australia (travel guide)","Fodor's","Travel","A5",true],
+["Bad Science","Ben Goldacre","Science","A5",true],
+["The Big Short","Michael Lewis","Nonfiction","A5",true],
+["Costa Rica (travel guide)","Various","Travel","A5",true],
+["Essential Italy (travel guide)","Various","Travel","A5",true],
+["Fortune's Formula","William Poundstone","Nonfiction","A5",true],
+["France (travel guide)","Various","Travel","A5",true],
+["Genome","Matt Ridley","Science","A5",true],
+["Great Britain (travel guide)","Various","Travel","A5",true],
+["Hawaii 2010 (travel guide)","Fodor's","Travel","A5",true],
+["New Zealand (travel guide)","Various","Travel","A5",true],
+["Paris: 500 Photos","Various","Travel","A5",true],
+["Puerto Rico (travel guide)","Various","Travel","A5",false],
+["Rome (travel guide)","Various","Travel","A5",true],
+["The Rosie Project","Graeme Simsion","Fiction","A5",true],
+["Seattle (travel guide)","Fodor's","Travel","A5",true],
+["The Baltic","Alan Palmer","History","A4",true],
+["Battle Cry of Freedom","James M. McPherson","History","A4",true],
+["The Game of Nations","Miles Copeland","Politics","A4",true],
+["Guns, Germs, and Steel","Jared Diamond","History","A4",true],
+["A History of Islamic Societies","Ira Lapidus","History","A4",true],
+["History of the Twentieth Century","J.M. Roberts","History","A4",true],
+["The Future of Capitalism","Lester Thurow","Economics","A4",true],
+["The History of Western Philosophy","Bertrand Russell","Philosophy","A4",true],
+["The Motorcycle Diaries","Ernesto Che Guevara","Memoir","A4",true],
+["The 9/11 Commission Report","Various","Nonfiction","A4",true],
+["Philosophy 101","Various","Philosophy","A4",true],
+["The
